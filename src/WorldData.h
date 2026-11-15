@@ -2,7 +2,7 @@
 #pragma once
 #include <stdint.h>
 #define WORLD_TEXELS 512
-#define WORLD_TILE_COUNT 256
+#define WORLD_TILE_COUNT 240
 extern const uint8_t WORLD_MAP[64 * 64];
-extern const uint8_t WORLD_TILES[256 * 32];
-extern const uint8_t WORLD_TILE_FAR[256];   // each tile's commonest colour, for distant ground
+extern const uint8_t WORLD_TILES[240 * 32];
+extern const uint8_t WORLD_TILE_FAR[240];   // each tile's commonest colour, for distant ground

@@ -145,6 +145,12 @@ rect(TX0 + 90, TY0, TX0 + 92, TY0 + 74, GREY_DK)
 # church / water tower
 rect(TX0 + 40, TY0 + 40, TX0 + 50, TY0 + 46, WHITE); rect(TX0 + 41, TY0 + 46, TX0 + 51, TY0 + 47, INK)
 
+# Downtown: a paved plaza east of town with five glass towers (drawn in 3D by
+# the game; the TOWERS table in Skylark.ino must match these footprints, in
+# metres = texels * 4). The avenue between the two rows is the slalom.
+rect(456, 100, 502, 166, ASPHALT)        # plain paving: the towers stand on it in 3D
+rect(452, 131, 456, 133, GREY_DK)        # road in from town
+
 # Landing target: concentric rings on a mown clearing
 GX, GY = 300, 230
 for y in range(GY - 14, GY + 15):
@@ -174,8 +180,9 @@ def dist(a, b):
 
 print('unique tiles before merging:', len(tiles))
 
-# Merge the closest tiles until 256 fit in a byte
-while len(tiles) > 256:
+# Merge the closest tiles until they fit: 240 (a byte holds 256; the rest of the
+# flash went on the 3D buildings and the jet)
+while len(tiles) > 240:
     use = [0] * len(tiles)
     for i in tmap: use[i] += 1
     # drop the tile whose replacement changes the fewest texels on the map

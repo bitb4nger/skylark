@@ -8,14 +8,26 @@ enum : uint8_t {
     C_WATER_DK, C_WATER, C_ASPHALT, C_GREY_DK, C_RED, C_GOLD, C_INK, C_LIME
 };
 
-enum Event : uint8_t { EV_PLANE, EV_GLIDER, EV_FREE };
+enum Event : uint8_t { EV_PLANE, EV_GLIDER, EV_JET, EV_FREE };
 
 struct RingDef { int16_t x, y, z, hdg; };
 
 struct ThermDef { int16_t x, y; uint8_t w10; };
 
-struct Ring { float x, y, z, hdg; bool done; };
+struct Ring { float x, y, z, hdg; bool done, hit; };
+
+// A course: its rings, where you start, and how it ends.
+enum Finish : uint8_t { FIN_RUNWAY, FIN_TARGET, FIN_GATE };
+struct CourseDef {
+    const char *name;
+    const RingDef *rings; uint8_t count;
+    int16_t sx, sy, sz, shdg; uint8_t speed;   // start: metres, degrees, m/s
+    Finish fin; uint8_t par;                   // par: seconds, for the time bonus
+};
+
+// A building: an axis-aligned box standing on the ground, metres.
+struct Bldg { int16_t x0, y0; uint8_t w, d, h, mat; };
 
 struct Craft {
-    float kL, cla, cl0, aStall, cd0, kInd, tMax, aTrim, pitchRate, rollRate, rollMax, camD, camH;
+    float kL, cla, cl0, aStall, cd0, kInd, tMax, aTrim, pitchRate, rollRate, rollMax, camD, camH, gMax;
 };
